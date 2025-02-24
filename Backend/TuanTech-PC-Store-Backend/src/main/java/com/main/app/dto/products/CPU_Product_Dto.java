@@ -1,19 +1,13 @@
-package com.main.app.model.products;
+package com.main.app.dto.products;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "cpu_product_tbl")
-@PrimaryKeyJoinColumn(name = "product_id")
-public class CPU_Product extends Product {
+@EqualsAndHashCode(callSuper = true)
+public class CPU_Product_Dto extends ProductDto {
     private String cpu_socket;
     private String cpu_cache;
     private Integer number_of_core;

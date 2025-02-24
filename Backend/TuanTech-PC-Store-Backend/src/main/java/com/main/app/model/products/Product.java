@@ -21,6 +21,7 @@ public abstract class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer product_id;
 
+    @Column(name = "product_name")
     private String product_name;
     private String product_brand;
     private String product_model;

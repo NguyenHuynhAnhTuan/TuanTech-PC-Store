@@ -2,7 +2,7 @@ select * from product_category_tbl
 
 select * from product_type_tbl
 
-select * from product_group_tbl where product_type_id = 1
+select * from product_group_tbl
 
 --Product Category Query
 insert into product_category_tbl values ('PC Components')
