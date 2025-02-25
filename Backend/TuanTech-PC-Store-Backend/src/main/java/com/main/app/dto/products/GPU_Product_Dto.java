@@ -1,21 +1,13 @@
-package com.main.app.model.products;
+package com.main.app.dto.products;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.PrimaryKeyJoinColumn;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "gpu_product_tbl")
-@PrimaryKeyJoinColumn(name = "product_id")
-public class GPU_Product extends Product {
+@EqualsAndHashCode(callSuper = true)
+public class GPU_Product_Dto extends ProductDto {
     private String number_of_gpu_core;
     private Integer core_clock;
     private Integer boost_clock;

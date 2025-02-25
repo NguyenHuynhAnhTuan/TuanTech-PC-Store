@@ -8,6 +8,7 @@ import com.main.app.model.ProductCategory;
 import com.main.app.model.ProductGroup;
 import com.main.app.model.ProductType;
 import com.main.app.model.products.CPU_Product;
+import com.main.app.model.products.Product;
 import com.main.app.repository.Product_Category_Repository;
 import com.main.app.repository.Product_Group_Repository;
 import com.main.app.repository.Product_Type_Repository;
@@ -110,6 +111,8 @@ public class CPU_Product_Service {
         if(productRepository.existsByProductName(newDto.getProduct_name())) {
             throw new ResourceAlreadyExistException("This CPU Name Already Exist!!!");
         }
+
+        var myProduct = productRepository.findById(1).get();
 
         System.out.println(newDto);
 
