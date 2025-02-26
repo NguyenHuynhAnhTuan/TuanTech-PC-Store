@@ -4,6 +4,10 @@ select * from product_type_tbl
 
 select * from product_group_tbl
 
+select * from product_tbl
+
+select * from product_detail_tbl
+
 --Product Category Query
 insert into product_category_tbl values ('PC Components')
 insert into product_category_tbl values ('Monitors')

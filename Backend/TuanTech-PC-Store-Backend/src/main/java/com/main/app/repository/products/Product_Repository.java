@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ProductRepository extends JpaRepository<Product , Integer> {
+public interface Product_Repository extends JpaRepository<Product , Integer> {
 
     @Query("SELECT COUNT(p) > 0 FROM Product p WHERE p.product_name = :productName")
     boolean existsByProductName(@Param("productName") String productName);

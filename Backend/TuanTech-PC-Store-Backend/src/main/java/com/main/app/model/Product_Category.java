@@ -15,14 +15,14 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductCategory {
+public class Product_Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer product_category_id;
     private String product_category_name;
 
     @OneToMany(mappedBy = "product_category" , cascade = CascadeType.ALL , orphanRemoval = true)
-    private List<ProductType> product_type_list;
+    private List<Product_Type> product_type_list;
 
     @OneToMany(mappedBy = "product_category" , cascade = CascadeType.ALL , orphanRemoval = true)
     private List<Product> products_by_category_list;

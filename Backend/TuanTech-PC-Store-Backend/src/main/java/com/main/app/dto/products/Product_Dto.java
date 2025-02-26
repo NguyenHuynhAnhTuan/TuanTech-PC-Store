@@ -6,17 +6,20 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public abstract class ProductDto {
+public class Product_Dto {
     private Integer product_id;
-
     private String product_name;
     private String product_brand;
     private String product_model;
     private Double product_price;
     private Integer product_guaranty;
     private Integer product_release_year;
+    private Integer stock_inventory;
 
     //Don't need to map these field
+    private Integer product_detail_id;
+    private String specifications;
+
     private Integer product_category_id;
     private String product_category_name;
 

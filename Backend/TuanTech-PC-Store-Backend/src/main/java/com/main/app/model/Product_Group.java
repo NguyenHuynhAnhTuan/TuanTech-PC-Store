@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductGroup {
+public class Product_Group {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer product_group_id;
@@ -23,7 +23,7 @@ public class ProductGroup {
 
     @ManyToOne
     @JoinColumn(name = "product_type_id" , nullable = false)
-    private ProductType product_type;
+    private Product_Type product_type;
 
     @OneToMany(mappedBy = "product_group" , cascade = CascadeType.ALL , orphanRemoval = true)
     private List<Product> products_by_group_list;

@@ -1,9 +1,9 @@
 package com.main.app.repository.products;
 
-import com.main.app.model.products.Mainboard_Product;
+import com.main.app.model.products.Product_Detail;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface Mainboard_Product_Repository extends JpaRepository<Mainboard_Product , Integer> {
+public interface Product_Detail_Repository extends JpaRepository<Product_Detail , Integer> {
 }
