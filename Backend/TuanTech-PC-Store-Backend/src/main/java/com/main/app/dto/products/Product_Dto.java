@@ -15,6 +15,9 @@ public class Product_Dto {
     private Integer product_guaranty;
     private Integer product_release_year;
     private Integer stock_inventory;
+    private String image_name;
+    private String image_path;
+    private String image_content_type;
 
     //Don't need to map these field
     private Integer product_detail_id;

@@ -27,7 +27,9 @@ public class Product {
     private Integer product_guaranty;
     private Integer product_release_year;
     private Integer stock_inventory;
-    private String image_url;
+    private String image_name;
+    private String image_path;
+    private String image_content_type;
 
     @OneToOne(mappedBy = "product" , cascade = CascadeType.ALL)
     private Product_Detail product_detail;

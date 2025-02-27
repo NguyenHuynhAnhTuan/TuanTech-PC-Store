@@ -1,6 +1,7 @@
 package com.main.app.service.products;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.main.app.dto.products.Product_Dto;
 import com.main.app.errorhandler.ResourceAlreadyExistException;
@@ -17,12 +18,25 @@ import com.main.app.repository.Product_Type_Repository;
 import com.main.app.repository.products.Product_Detail_Repository;
 import com.main.app.repository.products.Product_Repository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 @Service
 public class Product_Service {
+    @Value("${file.upload-dir}")
+    private String uploadDirectory;
+
     private final Product_Repository productRepository;
     private final Product_Detail_Repository productDetailRepository;
     private final Product_Category_Repository productCategoryRepository;
@@ -77,6 +91,27 @@ public class Product_Service {
         return compactJsonString;
     }
 
+    private Product_Dto mappingJsonToDto(String originProductString) throws JsonProcessingException {
+        String compactJsonString = myJsonStringify(originProductString);
+        ObjectMapper objMapper = new ObjectMapper();
+        JsonNode jsonNode = objMapper.readTree(compactJsonString);
+
+        Product_Dto dto = new Product_Dto();
+        dto.setProduct_name(jsonNode.get("product_name").asText());
+        dto.setProduct_brand(jsonNode.get("product_brand").asText());
+        dto.setProduct_model(jsonNode.get("product_model").asText());
+        dto.setProduct_price(jsonNode.get("product_price").asDouble());
+        dto.setProduct_guaranty(jsonNode.get("product_guaranty").asInt());
+        dto.setProduct_release_year(jsonNode.get("product_release_year").asInt());
+        dto.setStock_inventory(jsonNode.get("stock_inventory").asInt());
+        dto.setSpecifications(jsonNode.get("specifications").asText());
+        dto.setProduct_category_id(jsonNode.get("product_category_id").asInt());
+        dto.setProduct_type_id(jsonNode.get("product_type_id").asInt());
+        dto.setProduct_group_id(jsonNode.get("product_group_id").asInt());
+
+        return dto;
+    }
+
     public List<Product_Dto> service_all_product() {
         return productRepository.findAll()
                 .stream()
@@ -90,7 +125,19 @@ public class Product_Service {
                 .orElseThrow(() -> new ResourceNotFoundException("Product By Id: " + id + " Not Found!!!"));
     }
 
-    public Product_Dto service_create_product(Product_Dto newDto) throws JsonProcessingException {
+    public Resource service_image_resource(String category , String type,  String group , String fileName) throws MalformedURLException {
+        Path filePath = Paths.get(uploadDirectory)
+                .resolve(category)
+                .resolve(type)
+                .resolve(group)
+                .resolve(fileName);
+        System.out.println(filePath);
+        return new UrlResource(filePath.toUri());
+    }
+
+    public Product_Dto service_create_product(String productDtoOriginString , MultipartFile imageFile) throws IOException {
+        Product_Dto newDto = mappingJsonToDto(productDtoOriginString);
+
         if(productRepository.existsByProductName(newDto.getProduct_name())) {
             throw new ResourceAlreadyExistException("This Product Name Already Exist!!!");
         }
@@ -104,6 +151,23 @@ public class Product_Service {
         Product newEntity = mappingToEntity(newDto);
         newEntity.setProduct_detail(newProductDetail);
         newProductDetail.setProduct(newEntity);
+
+        //Image Handler
+        Path uploadPath = Paths.get(uploadDirectory).resolve(newEntity.getProduct_category().getProduct_category_name())
+                .resolve(newEntity.getProduct_type().getProduct_type_name())
+                .resolve(newEntity.getProduct_group().getProduct_group_name());
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+        }
+
+        String fileName = System.currentTimeMillis() + "_" + imageFile.getOriginalFilename();
+        Path filePath = uploadPath.resolve(fileName);
+        Files.copy(imageFile.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+        //
+
+        newEntity.setImage_name(fileName);
+        newEntity.setImage_path(filePath.toString());
+        newEntity.setImage_content_type(imageFile.getContentType());
 
         return mappingToDto(productRepository.save(newEntity));
     }

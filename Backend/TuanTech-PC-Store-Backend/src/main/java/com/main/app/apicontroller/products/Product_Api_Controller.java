@@ -1,14 +1,18 @@
 package com.main.app.apicontroller.products;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.main.app.apiresponse.ApiResponse;
 import com.main.app.dto.products.Product_Dto;
 import com.main.app.service.products.Product_Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.List;
 
 @RestController
@@ -19,6 +23,14 @@ public class Product_Api_Controller {
     @Autowired
     public Product_Api_Controller(Product_Service productService) {
         this.productService = productService;
+    }
+
+    private String getContentType(String filename) {
+        if (filename.endsWith(".jpg") || filename.endsWith(".jpeg")) return "image/jpeg";
+        if (filename.endsWith(".png")) return "image/png";
+        if (filename.endsWith(".gif")) return "image/gif";
+        if (filename.endsWith(".pdf")) return "application/pdf";
+        return "application/octet-stream"; // Default
     }
 
     @GetMapping("/all")
@@ -33,9 +45,27 @@ public class Product_Api_Controller {
         return new ResponseEntity<>(new ApiResponse<>(HttpStatus.OK.value(), "Success", result), HttpStatus.OK);
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<ApiResponse<Product_Dto>> controller_create_product(@RequestBody Product_Dto newDto) throws JsonProcessingException {
-        var result = productService.service_create_product(newDto);
+
+
+    @GetMapping("/image/{category}/{type}/{group}/{fileName}")
+    public ResponseEntity<Resource> controller_image_product(
+            @PathVariable(name = "category") String category,
+            @PathVariable(name = "type") String type,
+            @PathVariable(name = "group") String group,
+            @PathVariable(name = "fileName") String fileName
+    ) throws MalformedURLException {
+        Resource imageResource = productService.service_image_resource(category , type , group , fileName);
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(getContentType(fileName)))
+                .body(imageResource);
+    }
+
+    @PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<ApiResponse<Product_Dto>> controller_create_product(@RequestPart("newDtoOriginString") String newDtoOriginString,
+                                                                              @RequestPart("newImageFile") MultipartFile newImageFile
+    ) throws IOException {
+        var result = productService.service_create_product(newDtoOriginString , newImageFile);
         return new ResponseEntity<>(new ApiResponse<>(HttpStatus.CREATED.value(), "Created", result), HttpStatus.CREATED);
     }
+
 }
