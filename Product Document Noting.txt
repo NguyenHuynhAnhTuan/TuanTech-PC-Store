@@ -1,3 +1,27 @@
 Original String of An Json Object
-{"product_name": "Intel Core i5 13400F (Up To 4.60GHz, 10 Cores 16 Threads, 20 MB Cache, LGA 1700)", "product_brand": "Intel", "product_model":"Core i5 13400F", "product_price":150, "product_guaranty":36, "product_release_year":2023, "stock_inventory":10, "specifications":"{\"cores\":10, \"threads\":16,\"base_clock\":\"3.0 Ghz\", \"boost_clock\":\"4.5 Ghz\"}","product_category_id":1 , "product_type_id":1 , "product_group_id":1}
+
+For CPU Product (have the CPU Specification)
+
+//Create Json String
+{"product_name": "Intel Core i5 13400F (Up To 4.60GHz, 10 Cores 16 Threads, 20 MB Cache, LGA 1700)", "product_brand": "Intel", "product_model":"Core i5 13400F", "product_price":150, "product_guaranty":36, "product_release_year":2023, "stock_inventory":10, "specifications":"{\"cpu_socket\":\"FCLGA1700\",\"cpu_cores\":10,\"cpu_threads\":16,\"base_clock\":\"3.0 Ghz\",\"boost_clock\":\"4.5 Ghz\", \"cache\":\"25 MB Intel Smart Cache\", \"base_tdp\":\"65W\", \"ram_support\":\"Up to DDR5 4800 MT/s,Up to DDR4 3200 MT/s\",\"pcle_version\":\"5.0 and 4.0\",\"igpu\":\"No iGPU\"}","product_category_id":1 , "product_type_id":1 , "product_group_id":1}
+
+{"product_name": "INTEL CORE I5 14400 (2.5GHZ UP TO 4.7GHZ, 10 NHÂN 16 LUỒNG, 20MB CACHE, 65W)", "product_brand": "Intel", "product_model":"Core i5 14400", "product_price":210, "product_guaranty":36, "product_release_year":2024, "stock_inventory":15, "specifications":"{\"cpu_socket\":\"FCLGA1700\",\"cpu_cores\":10,\"cpu_threads\":16,\"base_clock\":\"2.5 Ghz\",\"boost_clock\":\"4.7 Ghz\", \"cache\":\"20 MB Intel Smart Cache\", \"base_tdp\":\"65W\", \"ram_support\":\"Up to DDR5 4800 MT/s,Up to DDR4 3200 MT/s\",\"pcle_version\":\"5.0 and 4.0\",\"igpu\":\"Intel UHD Graphics 730\"}","product_category_id":1 , "product_type_id":1 , "product_group_id":1}
+
+{"product_name": "Intel Core i7 12700F (Up To 4.90GHz, 12 Cores 20 Threads, 25 MB Cache, LGA 1700)", "product_brand": "Intel", "product_model":"Core i7 12700F", "product_price":345, "product_guaranty":36, "product_release_year":2022, "stock_inventory":10, "specifications":"{\"cpu_socket\":\"FCLGA1700\",\"cpu_cores\":12,\"cpu_threads\":20,\"base_clock\":\"2.1 Ghz\",\"boost_clock\":\"4.6 Ghz\", \"cache\":\"25 MB Intel Smart Cache\", \"base_tdp\":\"65W\", \"ram_support\":\"Up to DDR5 4800 MT/s,Up to DDR4 3200 MT/s\",\"pcle_version\":\"5.0 and 4.0\",\"igpu\":\"No iGPU\"}","product_category_id":1 , "product_type_id":1 , "product_group_id":1}
+
+{"product_name": "CPU AMD Ryzen 5 9600X (3.9 GHz Boost 5.4 GHz | 6 Cores / 12 Threads | 32 MB Cache)", "product_brand": "AMD", "product_model":"Ryzen 5 9600X", "product_price":350, "product_guaranty":36, "product_release_year":2024, "stock_inventory":10, "specifications":"{\"cpu_socket\":\"AM5\",\"cpu_cores\":6,\"cpu_threads\":12,\"base_clock\":\"3.9 Ghz\",\"boost_clock\":\"5.4 Ghz\", \"cache\":\"32MB\", \"base_tdp\":\"65W\", \"ram_support\":\"Up to DDR5 5200 MT/s\",\"pcle_version\":\"5.0 and 4.0\",\"igpu\":\"AMD Radeon Graphic\"}","product_category_id":1 , "product_type_id":1 , "product_group_id":2}
+
+//Update Json String
+{"product_id":1, "product_name": "Intel Core i3 10105F (Up To 4.20GHz, 4 Cores 8 Threads, 12 MB Cache, LGA 1700)", "product_brand": "Intel", "product_model":"Core i3 10105F", "product_price":80, "product_guaranty":36, "product_release_year":2021, "stock_inventory":5, "specifications":"{\"cpu_socket\":\"FCLGA1700\",\"cpu_cores\":4,\"cpu_threads\":8,\"base_clock\":\"2.7 Ghz\",\"boost_clock\":\"4.2 Ghz\", \"cache\":\"12 MB Intel Smart Cache\", \"base_tdp\":\"45W\", \"ram_support\":\"Up to DDR4 3200 MT/s\",\"pcle_version\":\"4.0\",\"igpu\":\"No iGPU\"}","product_category_id":1 , "product_type_id":1 , "product_group_id":1}
+
+
+For GPU Product (have the GPU Specification)
+
+
+
+
+
+
+
+
 

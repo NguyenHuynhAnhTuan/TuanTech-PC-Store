@@ -2,6 +2,7 @@ package com.main.app.apicontroller.products;
 
 import com.main.app.apiresponse.ApiResponse;
 import com.main.app.dto.products.Product_Dto;
+import com.main.app.model.products.Product;
 import com.main.app.service.products.Product_Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -39,6 +40,24 @@ public class Product_Api_Controller {
         return new ResponseEntity<>(new ApiResponse<>(HttpStatus.OK.value(), "Success", result), HttpStatus.OK);
     }
 
+    @GetMapping("/byCategory/{byCategory}")
+    public ResponseEntity<ApiResponse<List<Product_Dto>>> controller_all_product_by_category(@PathVariable(name = "byCategory") String byCategory) {
+        var result = productService.service_all_product_by_category(byCategory);
+        return new ResponseEntity<>(new ApiResponse<>(HttpStatus.OK.value(), "Success" , result) , HttpStatus.OK);
+    }
+
+    @GetMapping("/byType/{byType}")
+    public ResponseEntity<ApiResponse<List<Product_Dto>>> controller_all_product_by_type(@PathVariable(name = "byType") String byType) {
+        var result = productService.service_all_product_by_type(byType);
+        return new ResponseEntity<>(new ApiResponse<>(HttpStatus.OK.value(), "Success" , result) , HttpStatus.OK);
+    }
+
+    @GetMapping("/byGroup/{byGroup}")
+    public ResponseEntity<ApiResponse<List<Product_Dto>>> controller_all_product_by_group(@PathVariable(name = "byGroup") String byGroup) {
+        var result = productService.service_all_product_by_group(byGroup);
+        return new ResponseEntity<>(new ApiResponse<>(HttpStatus.OK.value(), "Success" , result) , HttpStatus.OK);
+    }
+
     @GetMapping("/detail/{id}")
     public ResponseEntity<ApiResponse<Product_Dto>> controller_detail_product(@PathVariable(name = "id") int id) {
         var result = productService.service_detail_product(id);
@@ -66,6 +85,14 @@ public class Product_Api_Controller {
     ) throws IOException {
         var result = productService.service_create_product(newDtoOriginString , newImageFile);
         return new ResponseEntity<>(new ApiResponse<>(HttpStatus.CREATED.value(), "Created", result), HttpStatus.CREATED);
+    }
+
+    @PutMapping(value = "/update", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<ApiResponse<Product_Dto>> controller_update_product(@RequestPart("updateDtoOriginString") String updateDtoOriginString,
+                                                                              @RequestPart("updateImageFile") MultipartFile updateImageFile
+    ) throws IOException {
+        var result = productService.service_update_product(updateDtoOriginString , updateImageFile);
+        return new ResponseEntity<>(new ApiResponse<>(HttpStatus.OK.value(), "Updated", result), HttpStatus.OK);
     }
 
 }

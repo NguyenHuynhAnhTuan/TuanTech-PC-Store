@@ -27,6 +27,7 @@ public class Product {
     private Integer product_guaranty;
     private Integer product_release_year;
     private Integer stock_inventory;
+
     private String image_name;
     private String image_path;
     private String image_content_type;
