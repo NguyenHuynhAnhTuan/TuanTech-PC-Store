@@ -2,7 +2,6 @@ package com.main.app.apicontroller.products;
 
 import com.main.app.apiresponse.ApiResponse;
 import com.main.app.dto.products.Product_Dto;
-import com.main.app.model.products.Product;
 import com.main.app.service.products.Product_Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -16,6 +15,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/collections")
 public class Product_Api_Controller {
