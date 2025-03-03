@@ -14,8 +14,8 @@ function Header() {
                     <img
                         src='https://file.hstatic.net/200000680123/file/tt_logo_black_779867cb0507407a8433688e203d4a2e.png'
                         alt='Logo'
-                        width={130}
-                        height={100}
+                        width={120}
+                        height={70}
                     />
                 </div>
 

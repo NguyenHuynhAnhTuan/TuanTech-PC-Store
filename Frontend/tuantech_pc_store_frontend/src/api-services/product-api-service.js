@@ -1,44 +1,35 @@
 import axios from "axios";
+import axiosClient from "./axiosClient";
 
-function getAllProduct() {
-    const result = axios
-        .get("http://localhost:8080/components/all")
-        .then((response) => {
-            console.log(response.data);
-            return response.data;
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-    return result;
-}
+const getAllProduct = async () => {
+    try {
+        const response = await axiosClient.get("/collections/all");
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+};
 
-function getDetailProduct(id) {
-    const result = axios
-        .get(`http://localhost:8080/components/detail/${id}`)
-        .then((response) => {
-            console.log(response.data);
-            return response.data;
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-    return result;
-}
+const getDetailProduct = async (id) => {
+    try {
+        const response = await axiosClient.get(`/collections/detail/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+};
 
-function loadProductImage(category, type, group, imageFileName) {
-    const result = axios
-        .get(
-            `http://localhost:8080/components/image/${category}/${type}/${group}/${imageFileName}`
-        )
-        .then((response) => {
-            console.log(response.data);
-            return response.data;
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-    return result;
-}
+const loadProductImage = async (query) => {
+    const { category, type, group, imageFileName } = query;
+    try {
+        const result = await axiosClient.get(
+            `/collections/image/${category}/${type}/${group}/${imageFileName}`
+        );
+        console.log(result.data);
+        return result.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
 
-export default [getAllProduct, getDetailProduct, loadProductImage];
+export { getAllProduct, getDetailProduct, loadProductImage };
